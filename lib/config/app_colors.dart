@@ -11,6 +11,7 @@ class AppColors {
   static const Color yello = Color(0xFFFEC51A);
   static const Color buttonsecondry = Color(0xFFD5F3FC);
   static const Color textTertiary = Color(0xFF6B6B6B);
+  static const Color textTertiary1111111111 = Color(0xFF6B6B6B);
 
   // Dark Mode
   static const Color textfielddark = Color(0xFF212121);
