@@ -1,0 +1,134 @@
+// // // import 'package:flutter/material.dart';
+// // // import 'package:shared_preferences/shared_preferences.dart';
+// // // import 'package:pucho/config/theme/app_theme.dart';
+
+// // // class ThemeProvider with ChangeNotifier {
+// // //   late ThemeData _themeData;
+// // //   bool _isDarkMode = false;
+
+// // //   ThemeProvider(BuildContext context) {
+// // //     // Initialize with a default theme to avoid uninitialized access
+// // //     _themeData = AppTheme.getLightTheme(context);
+// // //     _loadTheme(context);
+// // //   }
+
+// // //   ThemeData get themeData => _themeData;
+// // //   bool get isDarkMode => _isDarkMode;
+
+// // //   /// Load theme from SharedPreferences or system preference
+// // //   Future<void> _loadTheme(BuildContext context) async {
+// // //     final prefs = await SharedPreferences.getInstance();
+// // //     bool? storedTheme = prefs.getBool('isDarkMode');
+
+// // //     if (storedTheme == null) {
+// // //       Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
+// // //       _isDarkMode = systemBrightness == Brightness.dark;
+// // //       await prefs.setBool('isDarkMode', _isDarkMode);
+// // //     } else {
+// // //       _isDarkMode = storedTheme;
+// // //     }
+
+// // //     _themeData = _isDarkMode
+// // //         ? AppTheme.getDarkTheme(context)
+// // //         : AppTheme.getLightTheme(context);
+
+// // //     notifyListeners();
+// // //   }
+
+// // //   /// Toggle theme and store value in SharedPreferences
+// // //   Future<void> toggleTheme(BuildContext context) async {
+// // //     _isDarkMode = !_isDarkMode;
+// // //     _themeData = _isDarkMode
+// // //         ? AppTheme.getDarkTheme(context)
+// // //         : AppTheme.getLightTheme(context);
+
+// // //     final prefs = await SharedPreferences.getInstance();
+// // //     await prefs.setBool('isDarkMode', _isDarkMode);
+
+// // //     notifyListeners();
+// // //   }
+// // // }
+
+// // import 'package:flutter/material.dart';
+// // import 'package:shared_preferences/shared_preferences.dart';
+// // import 'package:pucho/config/theme/app_theme.dart';
+
+// // enum ThemeMode {
+// //   light,
+// //   dark,
+// //   system,
+// // }
+
+// // class ThemeProvider with ChangeNotifier {
+// //   late ThemeData _themeData;
+// //   ThemeMode _themeMode = ThemeMode.system;
+// //   bool _isDarkMode = false;
+
+// //   ThemeProvider(BuildContext context) {
+// //     // Initialize with a default theme to avoid uninitialized access
+// //     _themeData = AppTheme.getLightTheme(context);
+// //     _loadTheme(context);
+// //   }
+
+// //   ThemeData get themeData => _themeData;
+// //   bool get isDarkMode => _isDarkMode;
+// //   ThemeMode get themeMode => _themeMode;
+
+// //   /// Load theme from SharedPreferences or system preference
+// //   Future<void> _loadTheme(BuildContext context) async {
+// //     final prefs = await SharedPreferences.getInstance();
+// //     String? storedThemeMode = prefs.getString('themeMode');
+
+// //     if (storedThemeMode == null) {
+// //       _themeMode = ThemeMode.system;
+// //       await prefs.setString('themeMode', _themeMode.toString());
+// //     } else {
+// //       _themeMode = ThemeMode.values.firstWhere(
+// //         (e) => e.toString() == storedThemeMode,
+// //         orElse: () => ThemeMode.system,
+// //       );
+// //     }
+
+// //     _updateTheme(context);
+// //     notifyListeners();
+// //   }
+
+// //   void _updateTheme(BuildContext context) {
+// //     switch (_themeMode) {
+// //       case ThemeMode.light:
+// //         _isDarkMode = false;
+// //         _themeData = AppTheme.getLightTheme(context);
+// //         break;
+// //       case ThemeMode.dark:
+// //         _isDarkMode = true;
+// //         _themeData = AppTheme.getDarkTheme(context);
+// //         break;
+// //       case ThemeMode.system:
+// //         Brightness systemBrightness = MediaQuery.of(context).platformBrightness;
+// //         _isDarkMode = systemBrightness == Brightness.dark;
+// //         _themeData = _isDarkMode
+// //             ? AppTheme.getDarkTheme(context)
+// //             : AppTheme.getLightTheme(context);
+// //         break;
+// //     }
+// //   }
+
+// //   /// Set theme mode and store value in SharedPreferences
+// //   Future<void> setThemeMode(BuildContext context, ThemeMode mode) async {
+// //     _themeMode = mode;
+// //     _updateTheme(context);
+
+// //     final prefs = await SharedPreferences.getInstance();
+// //     await prefs.setString('themeMode', _themeMode.toString());
+
+// //     notifyListeners();
+// //   }
+
+// //   /// For backward compatibility
+// //   Future<void> toggleTheme(BuildContext context) async {
+// //     _themeMode = _isDarkMode ? ThemeMode.light : ThemeMode.dark;
+// //     await setThemeMode(context, _themeMode);
+// //   }
+// // }
+
+// // File: lib/config/theme/theme_provider.dart

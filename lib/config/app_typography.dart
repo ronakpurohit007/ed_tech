@@ -232,7 +232,7 @@ class AppTypography {
         fontFamily: anekLatin,
         fontSize: SizeConfig.getFontSize(18),
         fontWeight: FontWeight.w500,
-        color: AppColors.textprimery);
+        color: AppColors.textPrimary);
   }
 
 //settings subtitle
