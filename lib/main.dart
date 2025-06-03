@@ -61,7 +61,16 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -75,12 +84,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'MIXO Labs - Ed Tech',
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              brightness:
-                  themeProvider.isDarkMode ? Brightness.dark : Brightness.light,
-              fontFamily: 'Poppins', // Add your preferred font family
-            ),
+            theme: themeProvider.themeData,
             initialRoute: '/',
             routes: {
               '/': (context) => AuthWrapper(),

@@ -13,6 +13,8 @@ class AppColors {
   static const Color buttonsecondry = Color(0xFFD5F3FC);
   static const Color textTertiary = Color(0xFF6B6B6B);
   static const Color textField = Color(0xFFF5F5F5);
+  static const Color headerLight = Color(0xFFEDF5FF);
+  static const Color profileCardLight = Color(0xFFD5F0FF);
 
   // Dark Mode
   static const Color textfielddark = Color(0xFF212121);
@@ -22,4 +24,5 @@ class AppColors {
   static const Color buttonbg = Color(0xFF17455F);
   static const Color buttonnew = Color(0xFF4A432D);
   static const Color buttonbottombardark = Color(0xFF1E2539);
+  static const Color headerDark = Color(0xFF191E2C);
 }

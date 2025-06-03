@@ -1,6 +1,7 @@
 import 'package:ed_tech/config/app_colors.dart';
 import 'package:ed_tech/config/theme/theme_provider.dart';
 import 'package:ed_tech/core/utils/sizeconfig.dart';
+import 'package:ed_tech/features/profile/screen/profile_screen.dart';
 import 'package:ed_tech/widgets/custom_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,22 +24,22 @@ class CustomBottomNavBar extends StatelessWidget {
         color: themeProvider.isDarkMode
             ? AppColors.buttonbottombardark
             : AppColors.white, // Dark background
-        border: Border(
-          top: BorderSide(
-            color: Color(0xFF333333),
-            width: 0.5,
-          ),
-        ),
+        // border: Border(
+        //   top: BorderSide(
+        //     color: Color(0xFF333333),
+        //     width: 0.5,
+        //   ),
+        // ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12.withOpacity(0.3),
-            blurRadius: 20,
-            spreadRadius: 7,
+            color: Colors.black12.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 2,
           ),
         ],
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
         ),
       ),
       child: Column(
@@ -146,7 +147,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: Colors.transparent,
       body: _screens[_currentIndex],
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
@@ -186,9 +187,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // Your MTXOHeader
           MTXOHeader(
             title: "Dashboard",
-            isDarkMode: _isDarkMode,
-            onThemeToggle: _toggleTheme,
-            // showBackButton: true,
+            showThemeToggle: true,
           ),
 
           // Add your dashboard content here
@@ -321,18 +320,6 @@ class CoursesScreen extends StatelessWidget {
     return const Center(
       child: Text(
         'Courses Screen',
-        style: TextStyle(color: Colors.white, fontSize: 24),
-      ),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Profile Screen',
         style: TextStyle(color: Colors.white, fontSize: 24),
       ),
     );
