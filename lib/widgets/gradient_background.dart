@@ -18,9 +18,11 @@ class GradientBackground extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: themeProvider.isDarkMode
               ? const [
+                  Color(0xFF191E2C), // Very dark gray at bottom
+                  Color(0xFF191E2C), // Very dark gray at bottom
                   Color(0xFF1a365d), // Dark blue at top
                   Color(0xFF2d3748), // Dark gray-blue in middle
-                  Color(0xFF1a202c), // Very dark gray at bottom
+                  // Color(0xFF191E2C), // Very dark gray at bottom
                 ]
               : const [
                   Color(0xFFE6F3FF), // Light blue at top

@@ -107,7 +107,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (context, authProvider, child) {
         // Check if user is already authenticated
         if (authProvider.isAuthenticated) {
-          return HomeScreen();
+          return HomeScreenNew();
         } else {
           return SignInScreen();
         }

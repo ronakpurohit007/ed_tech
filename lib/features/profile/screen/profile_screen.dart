@@ -1,6 +1,10 @@
 import 'package:ed_tech/config/app_colors.dart';
+import 'package:ed_tech/config/app_typography.dart';
 import 'package:ed_tech/config/theme/theme_provider.dart';
+import 'package:ed_tech/core/utils/sizeconfig.dart';
+import 'package:ed_tech/widgets/custom_button.dart';
 import 'package:ed_tech/widgets/custom_header.dart';
+import 'package:ed_tech/widgets/gradient_background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +16,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 2; // Profile tab selected
 
   @override
   void initState() {
@@ -29,94 +32,36 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          // Header
-          MTXOHeader(),
+    return GradientBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          children: [
+            // Header
+            MTXOHeader(),
 
-          // Profile Content
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Profile Section
-                  _buildProfileSection(),
+            // Profile Content
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Profile Section
+                    _buildProfileSection(),
 
-                  // Stats Section
-                  _buildStatsSection(),
+                    // Stats Section
+                    _buildStatsSection(),
 
-                  // Tabs
-                  _buildTabs(),
+                    // Tabs
+                    _buildTabs(),
 
-                  // Content based on selected tab
-                  _buildTabContent(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-      child: Row(
-        children: [
-          // Logo
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                'M',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                    // Content based on selected tab
+                    _buildTabContent(),
+                  ],
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 10),
-          Text(
-            'MTXO',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.blue,
-            ),
-          ),
-          Text(
-            ' Labs',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          Spacer(),
-          // Theme toggle
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.orange,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Icon(
-              Icons.wb_sunny,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -127,18 +72,8 @@ class _ProfileScreenState extends State<ProfileScreen>
         width: double.infinity,
         decoration: BoxDecoration(
           color: themeProvider.isDarkMode
-              ? AppColors.headerDark
+              ? AppColors.profileCardDark
               : AppColors.profileCardLight,
-
-          // gradient: LinearGradient(
-          //   colors: [
-          //     AppColors.headerLight,
-          //     Colors.lightBlue[100]!,
-          //     Colors.lightBlue[50]!
-          //   ],
-          //   begin: Alignment.topCenter,
-          //   end: Alignment.bottomCenter,
-          // ),
         ),
         padding: EdgeInsets.symmetric(vertical: 40),
         child: Column(
@@ -188,16 +123,16 @@ class _ProfileScreenState extends State<ProfileScreen>
         padding: EdgeInsets.symmetric(vertical: 30),
         decoration: BoxDecoration(
             color: themeProvider.isDarkMode
-                ? AppColors.headerDark
+                ? AppColors.profileCardDark
                 : AppColors.profileCardLight,
             borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20))),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildStatCard(
-              icon: Icons.book,
+              icon: Icons.menu_book,
               iconColor: Colors.blue,
               iconBgColor: Colors.blue[50]!,
               count: '0',
@@ -211,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               label: 'Completed',
             ),
             _buildStatCard(
-              icon: Icons.emoji_events,
+              icon: Icons.workspace_premium,
               iconColor: Colors.orange,
               iconBgColor: Colors.orange[50]!,
               count: '0',
@@ -268,40 +203,48 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget _buildTabs() {
-    return Container(
-      color: AppColors.white,
-      child: TabBar(
-        controller: _tabController,
-        labelColor: Colors.blue,
-        unselectedLabelColor: Colors.grey,
-        indicatorColor: Colors.blue,
-        indicatorWeight: 3,
-        labelStyle: TextStyle(fontWeight: FontWeight.w600),
-        tabs: [
-          Tab(text: 'My Courses'),
-          Tab(text: 'Achievements'),
-          Tab(text: 'Settings'),
-        ],
-      ),
-    );
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+      return Container(
+        color: themeProvider.isDarkMode
+            ? AppColors.headerDark
+            : AppColors.headerLight,
+        child: TabBar(
+          controller: _tabController,
+          labelColor: Colors.blue,
+          unselectedLabelColor: Colors.grey,
+          indicatorColor: Colors.blue,
+          indicatorWeight: 3,
+          labelStyle: TextStyle(fontWeight: FontWeight.w600),
+          tabs: [
+            Tab(text: 'My Courses'),
+            Tab(text: 'Achievements'),
+            Tab(text: 'Settings'),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildTabContent() {
-    return Container(
-      height: 400,
-      color: AppColors.headerLight,
-      child: TabBarView(
-        controller: _tabController,
-        children: [
-          // My Courses Tab
-          _buildMyCoursesContent(),
-          // Achievements Tab
-          Center(child: Text('Achievements Content')),
-          // Settings Tab
-          Center(child: Text('Settings Content')),
-        ],
-      ),
-    );
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+      return Container(
+        height: 400,
+        color: themeProvider.isDarkMode
+            ? AppColors.headerDark
+            : AppColors.headerLight,
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            // My Courses Tab
+            _buildMyCoursesContent(),
+            // Achievements Tab
+            _buildAchievements(),
+            // Settings Tab
+            AccountSettingsScreen()
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildMyCoursesContent() {
@@ -344,73 +287,262 @@ class _ProfileScreenState extends State<ProfileScreen>
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 40),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
-              ),
-              elevation: 0,
-            ),
-            child: Text(
-              'Browse Courses',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
+          CustomButton(
+              buttonId: '',
+              text: "Browse Courses",
+              onPressed: () {},
+              backgroundColor: AppColors.buttonColor,
+              textColor: AppColors.primary),
         ],
       ),
     );
   }
 
-  Widget _buildBottomNavigation() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, -5),
+  Widget _buildAchievements() {
+    return Padding(
+      padding: EdgeInsets.all(30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Graduation cap icon
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.emoji_events_outlined,
+              size: 40,
+              color: AppColors.yello,
+            ),
           ),
+          SizedBox(height: 30),
+          Text(
+            'No Achievements Yet',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 15),
+          Text(
+            'Browse our catalog to find courses that interest you',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 40),
+          CustomButton(
+              buttonId: '',
+              text: "Browse Courses",
+              onPressed: () {},
+              backgroundColor: AppColors.buttonColor,
+              textColor: AppColors.primary),
         ],
       ),
-      child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+    );
+  }
+
+  Widget _buildSetting() {
+    return Padding(
+      padding: EdgeInsets.all(30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Graduation cap icon
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.emoji_events_outlined,
+              size: 40,
+              color: AppColors.yello,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Courses',
+          SizedBox(height: 30),
+          Text(
+            'No Achievements Yet',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+          SizedBox(height: 15),
+          Text(
+            'Browse our catalog to find courses that interest you',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help_outline),
-            label: 'Help',
-          ),
+          SizedBox(height: 40),
+          CustomButton(
+              buttonId: '',
+              text: "Browse Courses",
+              onPressed: () {},
+              backgroundColor: AppColors.buttonColor,
+              textColor: AppColors.primary),
         ],
       ),
+    );
+  }
+}
+
+class AccountSettingsScreen extends StatelessWidget {
+  final ValueNotifier<bool> _emailNotification = ValueNotifier(true);
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return Scaffold(
+      backgroundColor:
+          themeProvider.isDarkMode ? AppColors.headerDark : AppColors.primary,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: SizeConfig.getPadding(15),
+          child: Container(
+            decoration: BoxDecoration(
+                color: themeProvider.isDarkMode
+                    ? AppColors.buttonbg
+                    : AppColors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                      color: AppColors.back.withOpacity(0.5),
+                      blurRadius: 10,
+                      offset: Offset(0, 4))
+                ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: SizeConfig.getPaddingSymmetric(
+                      horizontal: 10, vertical: 15),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Account Setting",
+                      style: AppTypography.h1(context).copyWith(
+                        fontSize: 22,
+                        color: themeProvider.isDarkMode
+                            ? AppColors.white
+                            : AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                ),
+                _buildDivider(),
+                _buildSettingTile(
+                  icon: Icons.lock_outline,
+                  title: 'Change Password',
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {},
+                ),
+                _buildDivider(),
+                _buildToggleTile(
+                  icon: Icons.mail_outline,
+                  title: 'Email Notifications',
+                  valueNotifier: _emailNotification,
+                ),
+                _buildDivider(),
+                _buildSettingTile(
+                  icon: Icons.language,
+                  title: 'Language',
+                  subtitle: 'English',
+                  trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSettingTile({
+    required IconData icon,
+    required String title,
+    String? subtitle,
+    Widget? trailing,
+    VoidCallback? onTap,
+  }) {
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+      return ListTile(
+        leading: Icon(
+          icon,
+          color: themeProvider.isDarkMode
+              ? AppColors.white
+              : AppColors.textPrimary,
+        ),
+        title: Text(
+          title,
+          style: AppTypography.inputText(context).copyWith(
+            color: themeProvider.isDarkMode
+                ? AppColors.white
+                : AppColors.textPrimary,
+          ),
+        ),
+        subtitle: subtitle != null ? Text(subtitle) : null,
+        trailing: trailing,
+        onTap: onTap,
+      );
+    });
+  }
+
+  Widget _buildToggleTile({
+    required IconData icon,
+    required String title,
+    required ValueNotifier<bool> valueNotifier,
+  }) {
+    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+      return ValueListenableBuilder<bool>(
+        valueListenable: valueNotifier,
+        builder: (context, value, _) => ListTile(
+          leading: Icon(
+            icon,
+            color: themeProvider.isDarkMode
+                ? AppColors.white
+                : AppColors.textPrimary,
+          ),
+          title: Text(
+            title,
+            style: AppTypography.inputText(context).copyWith(
+              color: themeProvider.isDarkMode
+                  ? AppColors.white
+                  : AppColors.textPrimary,
+            ),
+          ),
+          trailing: Switch(
+            value: value,
+            onChanged: (newValue) => valueNotifier.value = newValue,
+            activeColor: AppColors.blue,
+            activeTrackColor: AppColors.buttonColor.withOpacity(0.3),
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _buildDivider() {
+    return Divider(
+      height: 0.5,
+      thickness: 1,
+      color: AppColors.back,
     );
   }
 }

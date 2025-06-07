@@ -33,13 +33,13 @@ class MTXOHeader extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             color: backgroundColor ??
                 (isDarkMode ? AppColors.headerDark : AppColors.headerLight),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.black.withOpacity(0.1),
+            //     blurRadius: 4,
+            //     offset: const Offset(0, 2),
+            //   ),
+            // ],
           ),
           child: SafeArea(
             child: Padding(

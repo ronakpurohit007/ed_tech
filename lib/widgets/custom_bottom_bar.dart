@@ -1,6 +1,7 @@
 import 'package:ed_tech/config/app_colors.dart';
 import 'package:ed_tech/config/theme/theme_provider.dart';
 import 'package:ed_tech/core/utils/sizeconfig.dart';
+import 'package:ed_tech/features/home/screen/home_screen.dart';
 import 'package:ed_tech/features/profile/screen/profile_screen.dart';
 import 'package:ed_tech/widgets/custom_header.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,7 @@ class _HomeWrapperState extends State<HomeWrapper> {
   late int _currentIndex;
 
   final List<Widget> _screens = [
-    DashboardScreen(),
+    HomeScreenNew(),
     CoursesScreen(),
     ProfileScreen(),
     HelpScreen(),
