@@ -55,13 +55,14 @@ class AppTheme {
       ),
 
       /// Card Theme
-      cardTheme: CardTheme(
-        color: Colors.white,
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
+      cardTheme: CardThemeData(
+  color: Colors.white,
+  elevation: 4,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+  ),
+),
+
 
       /// Checkbox Theme
       checkboxTheme: CheckboxThemeData(
@@ -133,13 +134,14 @@ class AppTheme {
       ),
 
       /// Card Theme
-      cardTheme: CardTheme(
-        color: Colors.grey.shade900,
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
+      cardTheme: CardThemeData(
+  color: Colors.white,
+  elevation: 4,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12),
+  ),
+),
+
 
       /// Checkbox Theme
       checkboxTheme: CheckboxThemeData(

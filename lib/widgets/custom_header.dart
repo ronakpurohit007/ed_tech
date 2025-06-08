@@ -29,7 +29,7 @@ class MTXOHeader extends StatelessWidget implements PreferredSizeWidget {
         final isDarkMode = themeProvider.isDarkMode;
 
         return Container(
-          height: height,
+          height: SizeConfig.height(13),
           decoration: BoxDecoration(
             color: backgroundColor ??
                 (isDarkMode ? AppColors.headerDark : AppColors.headerLight),
