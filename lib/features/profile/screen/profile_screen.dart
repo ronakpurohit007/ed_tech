@@ -34,7 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen>
     final themeProvider = Provider.of<ThemeProvider>(context);
     return GradientBackground(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: themeProvider.isDarkMode
+            ? AppColors.headerDark
+            : AppColors.headerLight,
         body: Column(
           children: [
             // Header

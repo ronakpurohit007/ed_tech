@@ -14,7 +14,7 @@ class AppColors {
   static const Color textTertiary = Color(0xFF6B6B6B);
   static const Color textField = Color(0xFFF5F5F5);
   static const Color headerLight = Color(0xFFE6F3FF);
-  static const Color profileCardLight = Color(0xFFD5F0FF);
+  static const Color profileCardLight = Color(0xFFB0EDFF);
   static const Color blue = Color(0xFF00C8FF);
 
   // Dark Mode

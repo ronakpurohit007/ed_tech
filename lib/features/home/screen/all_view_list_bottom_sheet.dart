@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:ed_tech/widgets/custom_textfield.dart';
+import 'package:ed_tech/widgets/filter_courses.dart';
 import 'package:flutter/material.dart';
 
 class CoursesBottomSheet extends StatefulWidget {
@@ -50,88 +54,22 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              // Header
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios, size: 20),
-                    ),
-                    const SizedBox(width: 8),
-                    Row(
-                      children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF42A5F5), Color(0xFF1E88E5)],
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'M',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text(
-                          'MTXO',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF1E88E5),
-                          ),
-                        ),
-                        const Text(
-                          ' Labs',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Icon(
-                        Icons.wb_sunny,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               // Title
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Explore Courses',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
+              HeaderWidget(),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 16),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Text(
+              //       'Explore Courses',
+              //       style: TextStyle(
+              //         fontSize: 24,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.black,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 16),
               // Tab bar
               Container(
@@ -167,7 +105,7 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
                       lessons: 32,
                       level: 'Intermediate',
                       isFree: false,
-                      imageUrl: null,
+                      imageUrl: "blockchain_image",
                     ),
                     const SizedBox(height: 16),
                     _buildCourseCard(
@@ -179,7 +117,7 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
                       tags: ['Computer Vision', 'Python', 'MLOps'],
                       duration: '16 hours',
                       lessons: 28,
-                      level: 'Intermediate',
+                      level: 'Advanced',
                       isFree: true,
                       imageUrl: 'blockchain_image',
                     ),
@@ -231,7 +169,7 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
                   topRight: Radius.circular(16),
                 ),
                 image: DecorationImage(
-                  image: AssetImage('assets/blockchain_placeholder.jpg'),
+                  image: AssetImage('assets/images/newimag.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -277,36 +215,6 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Blockchain sticky note effect
-                  Positioned(
-                    top: 80,
-                    left: 20,
-                    child: Transform.rotate(
-                      angle: -0.1,
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.yellow[200],
-                          borderRadius: BorderRadius.circular(4),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 4,
-                              offset: const Offset(2, 2),
-                            ),
-                          ],
-                        ),
-                        child: const Text(
-                          'BLOCKCHAIN',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
                         ),
                       ),
                     ),
@@ -502,5 +410,177 @@ class _CoursesBottomSheetState extends State<CoursesBottomSheet>
         ],
       ),
     );
+  }
+}
+
+class HeaderWidget extends StatefulWidget {
+  @override
+  _HeaderWidgetState createState() => _HeaderWidgetState();
+}
+
+class _HeaderWidgetState extends State<HeaderWidget> {
+  bool isSearchMode = false;
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        children: [
+          // Close button
+          IconButton(
+            onPressed: () {
+              // Handle close action
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.close,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(width: 5),
+
+          // Main content area
+          Expanded(
+            child: isSearchMode
+                ? // Search mode: Show text field
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: CustomTextField(
+                        hintText: "Search Courses...",
+                        controller: searchController)
+                    // TextField(
+                    //   controller: searchController,
+                    //   autofocus: true,
+                    //   decoration: InputDecoration(
+                    //     hintText: 'Search courses...',
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(8),
+                    //     ),
+                    //     contentPadding:
+                    //         EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    //   ),
+                    // ),
+                    )
+                : // Normal mode: Show title
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Explore Courses',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+          ),
+          // Search button
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isSearchMode = !isSearchMode;
+                if (!isSearchMode) {
+                  searchController.clear();
+                }
+              });
+            },
+            icon: Icon(
+              isSearchMode ? Icons.close : Icons.search,
+              color: Colors.black,
+            ),
+          ),
+
+          // Filter button
+          IconButton(
+            onPressed: () {
+              // Handle filter action
+              print('Filter clicked');
+              _openFilterBottomSheet(context);
+            },
+            icon: Icon(
+              Icons.filter_list,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _openFilterBottomSheet(BuildContext context) async {
+    final result = await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => FilterBottomSheet(),
+    );
+
+    if (result != null) {
+      print('Selected Skill Level: ${result['skillLevel']}');
+      print('Selected Price: ${result['price']}');
+    }
+  }
+
+  // void _openFilterBottomSheet(BuildContext context) async {
+  //   final result = await showGeneralDialog(
+  //     context: context,
+  //     barrierDismissible: true,
+  //     barrierLabel: '',
+  //     barrierColor: Colors.transparent,
+  //     transitionDuration: Duration(milliseconds: 500),
+  //     pageBuilder: (context, animation, secondaryAnimation) {
+  //       return Stack(
+  //         children: [
+  //           // Custom blur background
+  //           BackdropFilter(
+  //             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+  //             child: Container(
+  //               color: Colors.black.withOpacity(0.3),
+  //             ),
+  //           ),
+  //           // Bottom sheet
+  //           Align(
+  //             alignment: Alignment.bottomCenter,
+  //             child: Material(
+  //               color: Colors.transparent,
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   color: Colors.white,
+  //                   borderRadius:
+  //                       BorderRadius.vertical(top: Radius.circular(20)),
+  //                 ),
+  //                 child: FilterBottomSheet(),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //     transitionBuilder: (context, animation, secondaryAnimation, child) {
+  //       return SlideTransition(
+  //         position: Tween<Offset>(
+  //           begin: const Offset(0, 1),
+  //           end: Offset.zero,
+  //         ).animate(animation),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+
+  //   if (result != null && result is Map<String, dynamic>) {
+  //     print('Selected Skill Level: ${result['skillLevel']}');
+  //     print('Selected Price: ${result['price']}');
+  //   }
+  // }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 }
